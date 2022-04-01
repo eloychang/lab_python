@@ -19,8 +19,14 @@ class route:
         self._base_shipments = self._shipments.copy()
         self._base_worst_shipment = self._worst_shipment
         
+        
     def cost(self):
         return self._cost
+    
+    
+    def total_shipments(self):
+        return len(self._shipments)
+    
                 
     def drop_shipment(self, droped_shipment, dists):
         self._worst_shipment = (None, 0)
@@ -30,6 +36,7 @@ class route:
             self._cost -= self._shipments[shipment]
             if self._shipments[shipment] > self._worst_shipment[1]:
                 self._worst_shipment = (shipment, self._shipments[shipment])
+                
             
     def add_shipment(self, new_shipment, dist):
         dist_new_shipment = 0
@@ -41,10 +48,13 @@ class route:
             if self._shipments[shipment] > self._worst_shipment[1]:
                 self._worst_shipment = (shipment, self._shipments[shipment])
                 
+                
     def worst_shipment(self):
         return self._worst_shipment[0]
+    
     
     def reset(self):
         self._shipments = self._base_shipments.copy()
         self._worst_shipment = self._base_worst_shipment.copy()
+        
         

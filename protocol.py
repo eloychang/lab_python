@@ -4,9 +4,11 @@ from classes.solution import solution
 
 class protocol:
     
-    def __init__(self, filename):
+    def __init__(self, filename, routes):
         
         self._load_shipments(filename)
+        
+        self._total_routes = routes
         
         
     def _load_shipments(self, filename):
@@ -20,3 +22,16 @@ class protocol:
                     self._shipments.append({"id" : int(idx), "receiver" : receiver, "coord" : coordinates})
                 except ValueError:
                     ready = True
+                    
+                    
+    def iterative_local_search(self, iterations):
+        pass
+                    
+                    
+    def show_best_solution(self):        
+        print(f"Total distance: {round(self._solution.cost(),2)}")
+        for route in self._solution:
+            print(f"* Route_{route.id}:")
+            print(f"\t- Total shipments: {route.total_shipments()}")
+            print(f"\t- Total distance: {round(route.cost(),2)}")
+            
