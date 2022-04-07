@@ -32,7 +32,7 @@ class route:
         self._worst_shipment = (None, 0)
         self._shipments.pop(droped_shipment)
         for shipment in self._shipments.keys():
-            self._shipments[shipment] -= dist.get_dist(shipment, droped_shipment)
+            self._shipments[shipment] -= dists.get_dist(shipment, droped_shipment)
             self._cost -= self._shipments[shipment]
             if self._shipments[shipment] > self._worst_shipment[1]:
                 self._worst_shipment = (shipment, self._shipments[shipment])
@@ -42,11 +42,16 @@ class route:
         dist_new_shipment = 0
         self._worst_shipment = (None, 0)
         for shipment in self._shipments.keys():
-            dist = dist.get_dist(shipment, new_shipment)
-            self._shipments[shipment] += dist
+            distance = dist.get_dist(shipment, new_shipment)
+            dist_new_shipment += distance
+            self._shipments[shipment] += distance
             self._cost += self._shipments[shipment]
             if self._shipments[shipment] > self._worst_shipment[1]:
                 self._worst_shipment = (shipment, self._shipments[shipment])
+             
+        self._shipments[new_shipment] = dist_new_shipment  
+        if dist_new_shipment > self._worst_shipment[1]:
+            self._worst_shipment = (shipment, self._shipments[shipment])
                 
                 
     def worst_shipment(self):
